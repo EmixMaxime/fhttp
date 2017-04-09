@@ -1,0 +1,20 @@
+{
+  "name": "frequest",
+  "version": "0.0.1",
+  "description": "A set of functions to deal with request from express the good way.",
+  "main": "index.js",
+  "repository": {
+    "url": "https://github.com/EmixMaxime/frequest",
+    "type": "git"
+  },
+  "author": "Emix <emixmaxime@outlook.fr>",
+  "license": "MIT",
+  "scripts": {
+    "test": "mocha"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0",
+    "sinon": "^2.1.0"
+  }
+}
