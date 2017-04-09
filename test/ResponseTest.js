@@ -26,20 +26,6 @@ describe('Response', () => {
       });
     });
 
-    it('It should add my created cookieBag', () => {
-      const opts = {
-        secure: true,
-        httpOnly: true,
-        cookieName: 'JWT-TOKEN',
-        maxAge: 1 * 60 * 60 * 1000,
-      };
-
-      const bag = createCookieBag(opts);
-      const jwtCookieBag = bag(fakeExpressResponse);
-
-      expect(jwtCookieBag.setCookie).to.be.a('function');
-    });
-
     describe('#setCookie', () => {
 
       it('It should calls response.cookie function with good args', () => {
@@ -60,6 +46,23 @@ describe('Response', () => {
         responseCookieSpy.restore();
       });
 
+    });
+
+    describe('#createCookieBag', () => {
+
+      it('It should be a function', () => {
+        const opts = {
+          secure: true,
+          httpOnly: true,
+          cookieName: 'JWT-TOKEN',
+          maxAge: 1 * 60 * 60 * 1000,
+        };
+
+        const bag = createCookieBag(opts);
+        const jwtCookieBag = bag(fakeExpressResponse);
+
+        expect(jwtCookieBag.setCookie).to.be.a('function');
+      });
 
     });
 
