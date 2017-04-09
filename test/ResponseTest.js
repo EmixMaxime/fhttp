@@ -46,12 +46,18 @@ describe('Response', () => {
         const sessionName = 'emixid';
         const valueSession = 'hello-world';
 
-        const responsee = response({ cookiesOptions: { cookieName: sessionName } }); // "Instanciate"
+        const responsee = response({ cookiesOptions: { httpOnly: false } }); // "Instanciate"
         const Response = responsee(fakeExpressResponse);
 
-        Response.setCookie(valueSession);
+        const responseCookieSpy = sinon.spy(fakeExpressResponse, 'cookie');
+        Response.setCookie(sessionName, valueSession);
 
-        // expect(fakeExpressResponse[sessionName]).to.be.equal(valueSession);
+        const args = responseCookieSpy.args[0];
+        expect(args[0], 'Wrong cookieName').to.be.equal(sessionName);
+        expect(args[1], 'Wrong cookie data').to.be.equal(valueSession);
+        expect(args[2].httpOnly).to.be.false;
+
+        responseCookieSpy.restore();
       });
 
 
