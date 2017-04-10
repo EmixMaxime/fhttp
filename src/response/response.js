@@ -1,9 +1,9 @@
 const response = (
   { cookies },
-  { cookiesOptions }
+  options = {}
 ) => {
 
-  const cookiess = cookies(cookiesOptions);
+  const cookiess = cookies(options.cookiesOptions);
 
   return (res) => {
     const Cookies = cookiess(res);
