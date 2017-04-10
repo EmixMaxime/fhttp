@@ -49,3 +49,41 @@ app.get('/', (req, res) => {
   Request.getCsrfHeader(); // -> req.headers['CSRF-TOKEN']
 });
 ```
+
+## Response
+### Options
+You need to call a function to registrate your options, and then create our Response object.
+```js
+import { response } from 'fhttp';
+const responsee = response(options);
+
+app.get('/route', (req, res) => {
+  const Response = responsee(req); // Okay, work on this response
+  // Now, you can use functions on it to make your life easier
+});
+```
+
+## cookies
+
+### setCookies
+```js
+Response.setCookie('cookieName', 'cookieValue'); // Not options provided, defaults options will be applied.
+```
+The options parameter is an object that can have the same properties as express [res.cookies](http://expressjs.com/fr/api.html#res.cookie).
+
+### createCookieBag
+```js
+const opts = {
+  secure: true,
+  httpOnly: true,
+  cookieName: 'JWT-TOKEN',
+  maxAge: 55555656555,
+};
+
+const jwtCookieBag = createCookieBag(opts);
+
+app.get('', (req, res) => {
+  const JwtCookie = jwtCookieBag(response);
+  JwtCookie.setCookie('jwtValue');
+});
+```
