@@ -18,6 +18,8 @@ const cookies = ({ getCookie, buildShortcuts }, opts = {}) => {
     };
 
     const shortcuts = buildShortcuts(req, bind, boundableFunctions);
+    
+    return Object.assign({}, object, shortcuts);
   };
 };
 
