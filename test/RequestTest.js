@@ -6,6 +6,7 @@ const expect = chai.expect;
 const fakeExpressRequest =  {
   headers: {},
   cookies: {},
+  params: {},
 };
 
 describe('Request', () => {
@@ -33,7 +34,12 @@ describe('Request', () => {
     });
 
     it('It should calls properly', () => {
-      const requestt = request({ csrfHeaderName: 'CSRF-TOKEN' }); // "Instanciate"
+      const headersOptions = {
+        bind: {
+          getHeader: [{ name: 'getCsrfHeader', value: 'CSRF-TOKEN' }]
+        }
+      };
+      const requestt = request({ headersOptions }); // "Instanciate"
       fakeExpressRequest.headers['CSRF-TOKEN'] = 'supertoken';
       const Request = requestt(fakeExpressRequest);
 
@@ -54,15 +60,42 @@ describe('Request', () => {
       expect(Request['getCsrfHeader']).to.be.undefined;
     });
 
+    describe('#getParam', () => {
+
+      it('It should be a function property', () => {
+        const requestt = request();
+        const Request = requestt(fakeExpressRequest);
+
+        expect(Request).to.have.property('getParam').and.to.be.a('function');
+      });
+
+      it('It should returns the param header', () => {
+        const paramName = 'article';
+        const value = 'hello-world';
+
+        fakeExpressRequest.params[paramName] = value;
+
+        const requestt = request();
+        const Request = requestt(fakeExpressRequest);
+
+        expect(Request.getParam(paramName)).to.be.equal(value);
+      });
+
+    });
+
   });
 
   describe('#cookies', () => {
     it('It shoud contains all functions', () => {
       const sessionName = 'emixidd';
 
-      const headersOptions = { lol: true };
+      const cookiesOptions = { 
+        bind: {
+          getCookie: [{ name: 'getSessionCookie', value: 'emixidd' }],
+        }
+       };
       
-      const requestt = request({ cookiesOptions: { sessionName }, headersOptions }); // "Instanciate"
+      const requestt = request({ cookiesOptions });
       const Request = requestt(fakeExpressRequest);
 
       const functionsName = ['getCookie', 'getSessionCookie'];
@@ -72,9 +105,9 @@ describe('Request', () => {
       });
     });
 
-    describe.only('#getSessionCookie (short cut for getCookie with name)', () => {
+    describe('#getSessionCookie (short cut for getCookie with name)', () => {
 
-      it.only('It should exists', () => {
+      it('It should exists', () => {
         const sessionName = 'emixiddd';
         fakeExpressRequest.cookies[sessionName] = 'supertoken';
 
