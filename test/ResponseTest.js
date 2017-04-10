@@ -26,17 +26,21 @@ describe('Response', () => {
         functionsName.forEach(name => {
           expect(Response).to.have.property(name).and.to.be.a('function');
         });
+
       });
 
       it('It should calls response.cookie function with good args', () => {
+        const responseCookieSpy = sinon.spy(fakeExpressResponse, 'cookie');
+
         const sessionName = 'emixid';
         const valueSession = 'hello-world';
 
-        const responsee = response({ cookiesOptions: { httpOnly: false } });
+        const responsee = response();
         const Response = responsee(fakeExpressResponse);
 
-        const responseCookieSpy = sinon.spy(fakeExpressResponse, 'cookie');
-        Response.setCookie(sessionName, valueSession);
+        Response.setCookie(sessionName, valueSession, { httpOnly: false });
+
+        expect(responseCookieSpy.calledOnce).to.be.true;
 
         const args = responseCookieSpy.args[0];
         expect(args[0], 'Wrong cookieName').to.be.equal(sessionName);
@@ -74,6 +78,7 @@ describe('Response', () => {
         const value = 'hello-wooorld';
 
         const bag = createCookieBag(opts);
+
         const responseCookieSpy = sinon.spy(fakeExpressResponse, 'cookie');
         
         const jwtCookieBag = bag(fakeExpressResponse);
@@ -92,7 +97,8 @@ describe('Response', () => {
         expect(options).to.be.deep.eql(opts);
         expect(valuee).to.be.equal(value);
 
-        setCookieSpy.restore;
+        setCookieSpy.restore();
+        responseCookieSpy.restore();
 
       });
 
