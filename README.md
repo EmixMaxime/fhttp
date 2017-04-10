@@ -27,6 +27,11 @@ app.get('/route', (req, res) => {
 Request.getHeader('headerName'); // -> req.headers.headerName
 ```
 
+### getParam (name)
+```js
+Request.getParam('paramName'); // -> req.params.paramName
+```
+
 ### Add shortcut
 ```js
 const options = {
@@ -43,5 +48,4 @@ app.get('/', (req, res) => {
 
   Request.getCsrfHeader(); // -> req.headers['CSRF-TOKEN']
 });
-
 ```
