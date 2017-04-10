@@ -3,7 +3,7 @@ const sinon = require('sinon');
 const expect = chai.expect;
 
 const response = require('../src/response/ResponseServiceProvider');
-const { createCookieBag } = require('../src/response/cookies');
+const { createCookieBag, setCookie } = require('../src/response/cookies');
 
 const fakeExpressResponse =  {
   headers: {},
@@ -62,6 +62,38 @@ describe('Response', () => {
         const jwtCookieBag = bag(fakeExpressResponse);
 
         expect(jwtCookieBag.setCookie).to.be.a('function');
+      });
+
+      it('It should call setCookie properly', () => {
+        const opts = {
+          secure: true,
+          httpOnly: true,
+          cookieName: 'JWT-TOKEN',
+          maxAge: 55555656555,
+        };
+        const value = 'hello-wooorld';
+
+        const bag = createCookieBag(opts);
+        const responseCookieSpy = sinon.spy(fakeExpressResponse, 'cookie');
+        
+        const jwtCookieBag = bag(fakeExpressResponse);
+
+        const setCookieSpy = sinon.spy(jwtCookieBag, 'setCookie');
+
+        jwtCookieBag.setCookie(value);
+
+        expect(setCookieSpy.args[0][0]).to.be.equal(value);
+
+        const [ cookieName, valuee, options ] = responseCookieSpy.args[0];
+
+        expect(cookieName).to.be.equal(opts.cookieName);
+        
+        delete opts.cookieName;
+        expect(options).to.be.deep.eql(opts);
+        expect(valuee).to.be.equal(value);
+
+        setCookieSpy.restore;
+
       });
 
     });
