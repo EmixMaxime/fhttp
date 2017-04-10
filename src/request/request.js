@@ -1,6 +1,6 @@
 const request = (
   { headers, cookies },
-  options
+  options = {}
   ) => {
 
   const headerss = headers(options.headersOptions);
