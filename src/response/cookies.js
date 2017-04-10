@@ -37,7 +37,7 @@ const setJwtCookie = setCookie({
   maxAge: 1 * 60 * 60 * 1000,
 });
 
-const cookies = ({ setCookie }, options, bags = []) => {
+const cookies = ({ setCookie }, options) => {
   const setCookiee = setCookie(options); // "Instanciate"
 
   return (res) => ({
@@ -50,4 +50,5 @@ const cookiesFactory = deps => cookies.bind(null, deps);
 module.exports = {
   cookies: cookiesFactory({ setCookie }),
   createCookieBag: createCookieBagFactory({ setCookie }),
+  setCookie,
 };
