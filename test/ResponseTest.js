@@ -14,25 +14,25 @@ describe('Response', () => {
 
   describe('#cookies', () => {
 
-    it('It should contains all functions', () => {
-      const sessionName = 'emixid';
-      const responsee = response({ cookiesOptions: { cookieName: sessionName } }); // "Instanciate"
-      const Response = responsee(fakeExpressResponse);
-
-      const functionsName = ['setCookie'];
-
-      functionsName.forEach(name => {
-        expect(Response[name]).to.be.a('function');
-      });
-    });
-
     describe('#setCookie', () => {
+
+      it('It should contains setCookie properly', () => {
+        const sessionName = 'emixid';
+        const responsee = response({ cookiesOptions: { cookieName: sessionName } });
+        const Response = responsee(fakeExpressResponse);
+
+        const functionsName = ['setCookie'];
+
+        functionsName.forEach(name => {
+          expect(Response).to.have.property(name).and.to.be.a('function');
+        });
+      });
 
       it('It should calls response.cookie function with good args', () => {
         const sessionName = 'emixid';
         const valueSession = 'hello-world';
 
-        const responsee = response({ cookiesOptions: { httpOnly: false } }); // "Instanciate"
+        const responsee = response({ cookiesOptions: { httpOnly: false } });
         const Response = responsee(fakeExpressResponse);
 
         const responseCookieSpy = sinon.spy(fakeExpressResponse, 'cookie');
