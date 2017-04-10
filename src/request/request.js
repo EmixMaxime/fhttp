@@ -1,10 +1,10 @@
 const request = (
   { headers, cookies },
-  { csrfHeaderName = null, cookiesOptions = {} }
+  options
   ) => {
 
-  const headerss = headers(csrfHeaderName);
-  const cookiess = cookies(cookiesOptions.sessionName);
+  const headerss = headers(options.headersOptions);
+  const cookiess = cookies(options.cookiesOptions);
 
   return (req) => {
     const Cookies = cookiess(req);
