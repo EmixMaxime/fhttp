@@ -41,9 +41,21 @@ const setJwtCookie = setCookieBag({
 
 const cookies = ({ setCookie }, options = {}) => {
 
-  return (res) => ({
-    setCookie: setCookie.bind(null, res),
-  });
+  const { bags = [] } = options;
+
+  return (res) => {
+    const object = {
+      setCookie: setCookie.bind(null, res),
+    };
+
+    const bagsObject = {};
+
+    bags.forEach(bag => {
+      bagsObject[bag.name] = bag.bag;
+    });
+
+    return Object.assign({}, object, bagsObject);
+  };
 
 };
 

@@ -104,6 +104,31 @@ describe('Response', () => {
 
     });
 
+    it('It should add cookieBag', () => {
+      const opts = {
+        secure: true,
+        httpOnly: true,
+        cookieName: 'JWT-TOKEN',
+        maxAge: 1 * 60 * 60 * 1000,
+      };
+
+      const bag = createCookieBag(opts);
+      const jwtCookieBag = bag(fakeExpressResponse);
+
+      const responsee = response({
+        cookiesOptions: {
+          bags: [
+            { name: 'testbag', bag: jwtCookieBag },
+          ],
+        },
+      });
+      const Response = responsee(fakeExpressResponse);
+
+      expect(Response).to.have.property('testbag');
+      expect(Response.testbag).to.have.property('setCookie');
+      expect(Response.testbag.setCookie).to.be.a('function');
+    });
+
   });
 
 });
