@@ -51,7 +51,7 @@ const cookies = ({ setCookie }, options = {}) => {
     const bagsObject = {};
 
     bags.forEach(bag => {
-      bagsObject[bag.name] = bag.bag;
+      bagsObject[bag.name] = bag.bag(res);
     });
 
     return Object.assign({}, object, bagsObject);

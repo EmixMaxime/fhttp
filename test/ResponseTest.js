@@ -113,16 +113,17 @@ describe('Response', () => {
       };
 
       const bag = createCookieBag(opts);
-      const jwtCookieBag = bag(fakeExpressResponse);
 
       const responsee = response({
         cookiesOptions: {
           bags: [
-            { name: 'testbag', bag: jwtCookieBag },
+            { name: 'testbag', bag },
           ],
         },
       });
       const Response = responsee(fakeExpressResponse);
+
+      console.log({Response})
 
       expect(Response).to.have.property('testbag');
       expect(Response.testbag).to.have.property('setCookie');
