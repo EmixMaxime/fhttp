@@ -1,6 +1,7 @@
-const { getHeader, getParam, getCookie } = require('./utils');
+const deps = require('./utils');
 const buildShortcuts = require('../buildShortcuts');
+deps.buildShortcuts = buildShortcuts;
 
 const request = require('./request');
 
-module.exports = request({ getHeader, getParam, getCookie, buildShortcuts });
+module.exports = request(deps);

@@ -1,17 +1,24 @@
 const request = (
-  { getHeader, getParam, getCookie, buildShortcuts },
+  deps = {},
   opts = {}
   ) => {
+    const {
+    getHeader, getHeaders,
+    getParam, getParams,
+    getCookie, getCookies,
+    getBody,
+    getQuery, getQueries,
+    buildShortcuts
+  } = deps;
 
   const { bind } = opts;
-  const boundableFunctions = [ getHeader, getParam, getCookie ];
+  const boundableFunctions = [ getHeader, getParam, getCookie, getBody, getQuery ];
 
   return (req) => {
-    const object = {
-      getHeader: getHeader.bind(null, req),
-      getParam: getParam.bind(null, req),
-      getCookie: getCookie.bind(null, req),
-    };
+    const object = {};
+    Object.keys(deps).forEach(dep => {
+      object[dep] = deps[dep].bind(null, req);
+    });
 
     const shortcuts = buildShortcuts(req, bind, boundableFunctions);
     return Object.assign({}, object, shortcuts);
