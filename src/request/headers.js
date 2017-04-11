@@ -11,7 +11,7 @@ const getParam = (req, name) => req.params[name];
 
 const headers = ({ getHeader, getParam, buildShortcuts }, opts = {}) => {
   const { bind } = opts;
-  const boundableFunction = [ getHeader ];
+  const boundableFunction = [ getHeader, getParam ];
 
   return (req) => {
     const object = {

@@ -72,13 +72,31 @@ describe('Request', () => {
       it('It should returns the param header', () => {
         const paramName = 'article';
         const value = 'hello-world';
-
         fakeExpressRequest.params[paramName] = value;
 
         const requestt = request();
         const Request = requestt(fakeExpressRequest);
 
         expect(Request.getParam(paramName)).to.be.equal(value);
+      });
+
+      it('It should add a shortcut', () => {
+        const paramName = 'slug';
+        const value = 'hello-world';
+        fakeExpressRequest.params[paramName] = value;
+
+        const headersOptions = {
+          bind: {
+            getParam: [{ name: 'getSlugParam', value: paramName }]
+          }
+        };
+
+        const requestt = request({ headersOptions });
+        const Request = requestt(fakeExpressRequest);
+
+        expect(Request).to.have.property('getSlugParam').and.be.a('function');
+        expect(Request.getSlugParam()).to.be.equal(value);
+
       });
 
     });
