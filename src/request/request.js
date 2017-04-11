@@ -1,21 +1,23 @@
 const request = (
-  { headers, cookies },
-  options = {}
+  { getHeader, getParam, getCookie, buildShortcuts },
+  opts = {}
   ) => {
 
-  const headerss = headers(options.headersOptions);
-  const cookiess = cookies(options.cookiesOptions);
+  const { bind } = opts;
+  const boundableFunctions = [ getHeader, getParam, getCookie ];
 
   return (req) => {
-    const Cookies = cookiess(req);
-    const Headers = headerss(req);
+    const object = {
+      getHeader: getHeader.bind(null, req),
+      getParam: getParam.bind(null, req),
+      getCookie: getCookie.bind(null, req),
+    };
 
-    return Object.assign({}, Headers, Cookies);
+    const shortcuts = buildShortcuts(req, bind, boundableFunctions);
+    return Object.assign({}, object, shortcuts);
+
   };
 };
 
 const requestFactory = deps => request.bind(null, deps);
-
 module.exports = requestFactory;
-
-// const Request = request(req); Request.getHeader('headername');

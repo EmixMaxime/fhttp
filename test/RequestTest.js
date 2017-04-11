@@ -39,7 +39,7 @@ describe('Request', () => {
           getHeader: [{ name: 'getCsrfHeader', value: 'CSRF-TOKEN' }]
         }
       };
-      const requestt = request({ headersOptions }); // "Instanciate"
+      const requestt = request(headersOptions );
       fakeExpressRequest.headers['CSRF-TOKEN'] = 'supertoken';
       const Request = requestt(fakeExpressRequest);
 
@@ -91,7 +91,7 @@ describe('Request', () => {
           }
         };
 
-        const requestt = request({ headersOptions });
+        const requestt = request(headersOptions);
         const Request = requestt(fakeExpressRequest);
 
         expect(Request).to.have.property('getSlugParam').and.be.a('function');
@@ -113,7 +113,7 @@ describe('Request', () => {
         }
        };
       
-      const requestt = request({ cookiesOptions });
+      const requestt = request(cookiesOptions);
       const Request = requestt(fakeExpressRequest);
 
       const functionsName = ['getCookie', 'getSessionCookie'];

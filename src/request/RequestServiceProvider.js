@@ -1,5 +1,6 @@
-const headers = require('./headers').headers;
-const cookies = require('./cookies').cookies;
+const { getHeader, getParam, getCookie } = require('./utils');
+const buildShortcuts = require('../buildShortcuts');
+
 const request = require('./request');
 
-module.exports = request({ headers, cookies });
+module.exports = request({ getHeader, getParam, getCookie, buildShortcuts });
