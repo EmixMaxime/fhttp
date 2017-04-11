@@ -1,10 +1,10 @@
 {
-  "name": "frequest",
+  "name": "fhttp",
   "version": "0.0.1",
   "description": "A set of functions to deal with request from express the good way.",
   "main": "index.js",
   "repository": {
-    "url": "https://github.com/EmixMaxime/frequest",
+    "url": "https://github.com/EmixMaxime/fhttp",
     "type": "git"
   },
   "author": "Emix <emixmaxime@outlook.fr>",
