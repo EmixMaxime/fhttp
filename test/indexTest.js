@@ -1,13 +1,14 @@
 const chai = require('chai');
 const expect = chai.expect;
 
-const { response, request } = require('../index');
+const { response, request, createCookieBag } = require('../index');
 
 describe('Index', () => {
 
   it('It should exports response/request functions', () => {
     expect(response).to.be.a('function');
     expect(request).to.be.a('function');
+    expect(createCookieBag).to.be.a('function');
   });
 
   it('It should exports good functions', () => {
