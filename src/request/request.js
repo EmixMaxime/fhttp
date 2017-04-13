@@ -2,12 +2,14 @@ const request = (
   deps = {},
   opts = {}
   ) => {
+
     const {
     getHeader, getHeaders,
     getParam, getParams,
     getCookie, getCookies,
     getBody,
     getQuery, getQueries,
+    getMethod,
     buildShortcuts
   } = deps;
 

@@ -26,7 +26,7 @@ describe('Request', () => {
       const requestt = request({ headersOptions: {lol: true} }); // "Instanciate"
       const Request = requestt(fakeExpressRequest);
 
-      const functionsName = ['getHeader'];
+      const functionsName = ['getHeader', 'getMethod'];
 
       functionsName.forEach(name => {
         expect(Request[name]).to.be.a('function');
