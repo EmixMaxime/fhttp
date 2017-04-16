@@ -16,7 +16,7 @@ describe('Index', () => {
     const requestt = request();
 
     const Response = responsee({});
-    const Request = requestt({});
+    const Request = requestt({ cookies: {}});
 
     expect(Request).to.have.property('getHeader').and.be.a('function');
     expect(Response).to.have.property('setCookie').and.be.a('function');

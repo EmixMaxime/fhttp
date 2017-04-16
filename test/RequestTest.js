@@ -11,6 +11,11 @@ const fakeExpressRequest =  {
 
 describe('Request', () => {
 
+  it('It should throw an error without req.cookies', () => {
+      const requestt = request();
+      expect(() => requestt({})).to.throw();
+  });
+
   describe('#headers', () => {
     it('It shoud contains all functions', () => {
       const csrfHeaderName = 'CSRF-TOKEN';
