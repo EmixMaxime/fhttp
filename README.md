@@ -22,14 +22,43 @@ app.get('/route', (req, res) => {
 });
 ```
 
-### getHeader (name)
+### getBody(name)
 ```js
-Request.getHeader('headerName'); // -> req.headers.headerName
+Request.getBody(); // req.body
+Request.getBody("name"); // req.body.name
 ```
 
-### getParam (name)
+### getHeaders / getHeader(name)
 ```js
+Request.getHeaders(); // -> req.headers
+Request.getHeader('headerName'); // -> req.headers.headerName
+Request.getHeaders('headerName'); // -> req.headers.headerName
+```
+
+### getParams / getParam(name)
+```js
+Request.getParams(); // -> req.params
 Request.getParam('paramName'); // -> req.params.paramName
+Request.getParams('paramName'); // -> req.params.paramName
+```
+
+### getQueries / getQuery(name)
+```js
+Request.getQueries(); // -> req.query
+Request.getQuery("queryName"); // -> req.query.queryName
+Request.getQueries("queryName"); // -> req.query.queryName
+```
+
+### getCookies / getCookie(name)
+```js
+Request.getCookies(); // -> req.cookies
+Request.getCookie("cookieName"); // -> req.cookies.cookieName
+Request.getCookies("cookieName"); // -> req.cookies.cookieName
+```
+
+### getMethod
+```js
+Request.getMethod(); // -> req.method
 ```
 
 ### Add shortcut
