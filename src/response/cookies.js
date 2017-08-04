@@ -4,9 +4,17 @@
  * 
  */
 
-const setCookieBag = (
-  { maxAge = 1 * 60 * 60 * 1000, secure = true, httpOnly = true }
-) => (response, cookieName, data) => response.cookie(cookieName, data, { maxAge, secure, httpOnly });
+const setCookieBag = (opts) => {
+  const defaultOpts = {
+    secure = true,
+    httpOnly = true
+  };
+
+  delete opts.cookieName;
+  const cookiesOptions = Object.assign({}, defaultOpts, opts);
+
+  return (response, cookieName, data) => response.cookie(cookieName, data, cookiesOptions);
+};
 
 const setCookie = (response, cookieName, data, opts = {}) => setCookieBag(opts)(response, cookieName, data);
 
