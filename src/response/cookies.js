@@ -6,8 +6,8 @@
 
 const setCookieBag = (opts) => {
   const defaultOpts = {
-    secure = true,
-    httpOnly = true
+    secure: true,
+    httpOnly: true
   };
 
   delete opts.cookieName;
