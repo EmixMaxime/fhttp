@@ -1,6 +1,6 @@
 {
   "name": "fhttp",
-  "version": "0.4.3",
+  "version": "0.4.4",
   "description": "A set of functions to deal with request from express the good way.",
   "main": "index.js",
   "repository": {
