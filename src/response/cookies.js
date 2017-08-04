@@ -10,8 +10,8 @@ const setCookieBag = (opts) => {
     httpOnly: true
   };
 
-  delete opts.cookieName;
   const cookiesOptions = Object.assign({}, defaultOpts, opts);
+  delete cookiesOptions.cookieName;
 
   return (response, cookieName, data) => response.cookie(cookieName, data, cookiesOptions);
 };
