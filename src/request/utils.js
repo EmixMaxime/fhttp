@@ -4,7 +4,7 @@
  * 
  */
 
-const getHeader = (req, name) => req.headers[name] || null;
+const getHeader = (req, name) => req.headers[name.toLowerCase()] || null;
 const getHeaders = req => req.headers || null;
 
 const getParam = (req, name) => req.params[name] || null;
